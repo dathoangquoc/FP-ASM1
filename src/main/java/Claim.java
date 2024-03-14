@@ -11,9 +11,10 @@ public class Claim {
     double claimAmount;
     String status;
     String receiverInfo;
+    static int count = 1;
 
-    public Claim(String claimID, Date claimDate, Customer insuredPerson, String cardNum, Date examDate, ArrayList<Object> documents, double claimAmount, String status, String receiverInfo) {
-        this.claimID = claimID;
+    public Claim(Date claimDate, Customer insuredPerson, String cardNum, Date examDate, ArrayList<Object> documents, double claimAmount, String status, String receiverInfo) {
+        this.claimID = String.format("F%010d", count);
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
         this.cardNum = cardNum;
@@ -22,5 +23,6 @@ public class Claim {
         this.claimAmount = claimAmount;
         this.status = status;
         this.receiverInfo = receiverInfo;
+        count++;
     }
 }

@@ -7,4 +7,8 @@ public class PolicyHolder extends Customer{
         super(name, insuranceCard);
         this.dependents = new ArrayList<Dependent>();
     }
+
+    void AddDependent(){
+
+    }
 }
