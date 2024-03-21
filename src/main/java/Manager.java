@@ -21,6 +21,7 @@ public class Manager{
 //        for each line {
 //          addClaim(line)
 //        }
+
     }
 
     private Customer findCustomer(String name) {
@@ -42,22 +43,36 @@ public class Manager{
     }
 
     public boolean addClaim(String input) {
-        do {
         if (input.equals("0")) {
             return false;
         }
 //        Remove whitespaces and non-visible characters, then split
         String[] info = input.replaceAll("\\s+","").split(",");
 
-        String inputClaimDate = info[0];
-        String inputInsuredPerson = info[1];
-        String inputCardNum = info[2];
-        String inputExamDate = info[3];
-        String inputDocuments = info[4];
-        String inputClaimAmount = info[5];
-        String inputStatus = info[6];
-        String inputReceiver = info[7];
+        String inputClaimDate;
+        String inputInsuredPerson;
+        String inputCardNum;
+        String inputExamDate;
+        String inputDocuments;
+        String inputClaimAmount;
+        String inputStatus;
+        String inputReceiver;
 
+
+        try {
+        inputClaimDate = info[0];
+        inputInsuredPerson = info[1];
+        inputCardNum = info[2];
+        inputExamDate = info[3];
+        inputDocuments = info[4];
+        inputClaimAmount = info[5];
+        inputStatus = info[6];
+        inputReceiver = info[7];
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Not enough information");
+            return false;
+        }
 //        Validate claimDate
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -134,17 +149,8 @@ public class Manager{
         claims.add(claim);
             System.out.println("Added" + claim);
         return true;
-        } while (true);
     }
 
-    public boolean addCustomer(String input) {
-        do {
-
-
-            PolicyHolder policyHolder = new PolicyHolder();
-            return true;
-        } while (true);
-    }
 
     public void update() {
 
