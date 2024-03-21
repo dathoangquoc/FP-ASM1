@@ -3,11 +3,11 @@ import java.util.Date;
 public class InsuranceCard {
     private String cardNum;
     private Customer cardHolder;
-    private PolicyHolder policyOwner;
+    private String policyOwner;
     private Date expirationDate;
     private static int count = 0;
 
-    public InsuranceCard(Customer cardHolder, PolicyHolder policyOwner, Date expirationDate) {
+    public InsuranceCard(Customer cardHolder, String policyOwner, Date expirationDate) {
         count++;
         this.cardNum = String.format("%010d", count);
         this.cardHolder = cardHolder;
@@ -27,11 +27,11 @@ public class InsuranceCard {
         this.cardHolder = cardHolder;
     }
 
-    public PolicyHolder getPolicyOwner() {
+    public String getPolicyOwner() {
         return policyOwner;
     }
 
-    public void setPolicyOwner(PolicyHolder policyOwner) {
+    public void setPolicyOwner(String policyOwner) {
         this.policyOwner = policyOwner;
     }
 

@@ -17,6 +17,10 @@ public class Manager{
 
     public void importFile() {
 //        Add dependent -> policy holder -> insurance card -> claim
+//        File file import smt smt
+//        for each line {
+//          addClaim(line)
+//        }
     }
 
     private Customer findCustomer(String name) {
@@ -37,7 +41,11 @@ public class Manager{
         return null;
     }
 
-    public void add(String input) {
+    public boolean addClaim(String input) {
+        do {
+        if (input.equals("0")) {
+            return false;
+        }
 //        Remove whitespaces and non-visible characters, then split
         String[] info = input.replaceAll("\\s+","").split(",");
 
@@ -53,52 +61,66 @@ public class Manager{
 //        Validate claimDate
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
-        Date claimDate = new Date();
+        Date claimDate;
         try {
             claimDate = format.parse(inputClaimDate);
         } catch (ParseException e) {
             System.out.println("Invalid date format. dd-MM-yyyy.");
+            return false;
         }
 
 //        Validate insuredPerson
-        Customer insuredPerson = null;
+        Customer insuredPerson;
         try {
-        insuredPerson = findCustomer(inputInsuredPerson);
-        } catch (NullPointerException e) {
-            System.out.println("No customer found");
+            insuredPerson = findCustomer(inputInsuredPerson);
+            if (insuredPerson == null) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            System.out.println("Customer not found");
+            return false;
         }
 
 //        Validate cardNum
-        String cardNum = "";
+        String cardNum;
         try {
             cardNum = findInsuranceCard(inputCardNum).getCardNum();
         } catch (NullPointerException e) {
             System.out.println("No Insurance Card found");
+            return false;
         }
 
 //        Validate examDate
-        Date examDate = new Date();
+        Date examDate;
         try {
             examDate = format.parse(inputExamDate);
         } catch (ParseException e) {
             System.out.println("Invalid date format. dd-MM-yyyy.");
+            return false;
         }
 
 //        Store documents
         String[] documents = inputDocuments.split("-");
 
 //        Validate claimAmount
-        double claimAmount = 0.0;
+        double claimAmount;
         try {
             claimAmount = Double.parseDouble(inputClaimAmount);
         } catch (NumberFormatException e) {
             System.out.println("Invalid Claim Amount");
+            return false;
         }
 
 //        Validate status
-        int status = Integer.parseInt(inputStatus);
-        if (status > 2) {
-            throw new RuntimeException("Status number has to be 0 or 1 or 2");
+        int status;
+        try {
+            status = Integer.parseInt(inputStatus);
+            if (status > 2) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            System.out.println("Status number has to be 0 or 1 or 2");
+            return false;
         }
 
 //        Validate receiver info
@@ -110,10 +132,18 @@ public class Manager{
             claim.addDocument(s);
         }
         claims.add(claim);
+            System.out.println("Added" + claim);
+        return true;
+        } while (true);
     }
 
-    public void add(InsuranceCard insuranceCard) {
-        this.insuranceCards.add(insuranceCard);
+    public boolean addCustomer(String input) {
+        do {
+
+
+            PolicyHolder policyHolder = new PolicyHolder();
+            return true;
+        } while (true);
     }
 
     public void update() {
