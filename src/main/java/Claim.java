@@ -108,8 +108,7 @@ public class Claim implements Serializable {
 
     @Override
     public String toString() {
-        return "Claim{" +
-                "claimID='" + claimID + '\'' +
+        return  "claimID='" + claimID + '\'' +
                 ", claimDate=" + claimDate +
                 ", insuredPerson=" + insuredPerson.getName() +
                 ", cardNum='" + cardNum + '\'' +

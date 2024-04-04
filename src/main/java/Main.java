@@ -9,23 +9,25 @@ public class Main {
         } else {
             System.out.println("Data error");
         }
-        System.out.println("""
+        String input = "";
+        while (!input.equals("0")) {
+            System.out.println("""
                 _____________________Good afternoon Manager_____________________
                 [0] Save and exit
                 -------------------------
                 [1] Add new claim
                 [2] Update a claim
                 [3] Delete a claim
-                [4] Get 1 claim
+                [4] Get a claim
                 [5] Get all claims
                 -------------------------
                 ENTER NUMBER:
                 """);
-        String input = scanner.nextLine().trim();
-        switch (input) {
-            case "1":
-                do {
-                    System.out.println("""
+            input = scanner.nextLine().trim();
+            switch (input) {
+                case "1":
+                    do {
+                        System.out.println("""
                 _____________________Add New Claim_____________________
                 [0] Go back
                 -------------------------
@@ -42,15 +44,18 @@ public class Main {
                 -------------------------
                 ENTER 0 or a claim:
                 """);
+                        input = scanner.nextLine();
+                        m.newClaim(input);
+                    } while (!input.equals("0"));
+                    break;
+                case "2":
+                    break;
+                case "5":
+                    m.getAll();
+                    System.out.println("Press [Enter] to continue");
                     input = scanner.nextLine();
-                    m.newClaim(input);
-                } while (!input.equals("0"));
-                break;
-            case "2":
-                break;
-            case "5":
-                m.getAll();
-                break;
+                    break;
+            }
         }
     }
 }
