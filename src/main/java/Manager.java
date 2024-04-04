@@ -1,10 +1,15 @@
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Manager{
+public class Manager implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8762550684569433657L;
+
     ArrayList<Claim> claims;
     ArrayList<InsuranceCard> insuranceCards;
     ArrayList<Customer> customers;
@@ -15,18 +20,46 @@ public class Manager{
         this.customers = new ArrayList<>();
     }
 
-    public void importFile() {
-//        Add dependent -> policy holder -> insurance card -> claim
-//        File file import smt smt
-//        for each line {
-//          addClaim(line)
-//        }
+    public boolean loadData() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream("./src/data/Data.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            Manager m = (Manager) objectInputStream.readObject();
 
+            this.customers = m.customers;
+            Customer.setCount(customers.size());
+
+            this.insuranceCards = m.insuranceCards;
+            InsuranceCard.setCount(insuranceCards.size());
+
+            this.claims = m.claims;
+            Claim.setCount(claims.size());
+
+            return true;
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
-    private Customer findCustomer(String name) {
+    public void saveData() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("./src/data/Data.ser");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private Customer findCustomer(String customerID) {
         for (Customer c: customers) {
-            if (c.getName().equalsIgnoreCase(name)) {
+            if (c.getCustomerID().equalsIgnoreCase(customerID)) {
                 return c;
             }
         }
@@ -42,7 +75,19 @@ public class Manager{
         return null;
     }
 
-    public boolean addClaim(String input) {
+    public void addClaim(Claim claim) {
+        this.claims.add(claim);
+    }
+
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+    }
+
+    public void addInsuranceCard(InsuranceCard insuranceCard) {
+        this.insuranceCards.add(insuranceCard);
+    }
+
+    public boolean newClaim(String input) {
         if (input.equals("0")) {
             return false;
         }
@@ -50,8 +95,7 @@ public class Manager{
         String[] info = input.replaceAll("\\s+","").split(",");
 
         String inputClaimDate;
-        String inputInsuredPerson;
-        String inputCardNum;
+        String inputInsuredPersonID;
         String inputExamDate;
         String inputDocuments;
         String inputClaimAmount;
@@ -61,13 +105,12 @@ public class Manager{
 
         try {
         inputClaimDate = info[0];
-        inputInsuredPerson = info[1];
-        inputCardNum = info[2];
-        inputExamDate = info[3];
-        inputDocuments = info[4];
-        inputClaimAmount = info[5];
-        inputStatus = info[6];
-        inputReceiver = info[7];
+        inputInsuredPersonID = info[1];
+        inputExamDate = info[2];
+        inputDocuments = info[3];
+        inputClaimAmount = info[4];
+        inputStatus = info[5];
+        inputReceiver = info[6];
 
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Not enough information");
@@ -87,7 +130,7 @@ public class Manager{
 //        Validate insuredPerson
         Customer insuredPerson;
         try {
-            insuredPerson = findCustomer(inputInsuredPerson);
+        insuredPerson = findCustomer(inputInsuredPersonID);
             if (insuredPerson == null) {
                 throw new Exception();
             }
@@ -99,7 +142,7 @@ public class Manager{
 //        Validate cardNum
         String cardNum;
         try {
-            cardNum = findInsuranceCard(inputCardNum).getCardNum();
+            cardNum = insuredPerson.getCardNum();
         } catch (NullPointerException e) {
             System.out.println("No Insurance Card found");
             return false;
@@ -147,17 +190,20 @@ public class Manager{
             claim.addDocument(s);
         }
         claims.add(claim);
-            System.out.println("Added" + claim);
+        this.saveData();
+        this.loadData();
+        System.out.println("Added" + claim);
         return true;
     }
 
 
-    public void update() {
-
+    public void updateClaim() {
+        this.saveData();
+        this.loadData();
     }
 
 
-    public boolean delete(Claim claim) {
+    public boolean deleteClaim(Claim claim) {
         return false;
     }
 
@@ -167,7 +213,9 @@ public class Manager{
     }
 
 
-    public String getAll() {
-        return null;
+    public void getAll() {
+        for (Claim c : claims) {
+            System.out.println(c);
+        }
     }
 }

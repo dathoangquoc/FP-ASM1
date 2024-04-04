@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Claim {
+public class Claim implements Serializable {
     private String claimID;
     private Date claimDate;
     private Customer insuredPerson;
@@ -68,7 +69,8 @@ public class Claim {
     }
 
     public void addDocument(String document) {
-
+        // Replace spaces with "_"
+        document = document.replaceAll("\\s+","_");
         this.documents.add(this.getClaimID() + "_" + this.getCardNum() + "_" + document + ".pdf");
     }
 
@@ -98,6 +100,10 @@ public class Claim {
 
     public static int getCount() {
         return count;
+    }
+
+    protected static void setCount(int count) {
+        Claim.count = count;
     }
 
     @Override

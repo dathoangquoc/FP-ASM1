@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class InsuranceCard {
+public class InsuranceCard implements Serializable {
     private String cardNum;
     private Customer cardHolder;
     private String policyOwner;
@@ -47,4 +48,7 @@ public class InsuranceCard {
         return count;
     }
 
+    protected static void setCount(int count) {
+        InsuranceCard.count = count;
+    }
 }

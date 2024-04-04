@@ -1,19 +1,17 @@
 import java.util.Scanner;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
+
 public class MainTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Manager m = new Manager();
-//        m.import(File file)
+        m.loadData();
         System.out.println("""
                 _____________________Good afternoon Manager_____________________
                 [0] Save and exit
                 -------------------------
                 [1] Add new claim
-                [2] Update existing claim
-                [3] Delete existing claim
+                [2] Update a claim
+                [3] Delete a claim
                 [4] Get 1 claim
                 [5] Get all claims
                 -------------------------
@@ -41,7 +39,7 @@ public class MainTest {
                 ENTER 0 or a claim:
                 """);
                 input = scanner.nextLine();
-                m.addClaim(input);
+                m.newClaim(input);
                 } while (!input.equals("0"));
                 break;
             case "2":

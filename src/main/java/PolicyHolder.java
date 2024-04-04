@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PolicyHolder extends Customer{
+public class PolicyHolder extends Customer implements Serializable {
     private ArrayList<Dependent> dependents;
 
-    public PolicyHolder(String name, InsuranceCard insuranceCard) {
-        super(name, insuranceCard);
+    public PolicyHolder(String name, String cardNum) {
+        super(name, cardNum);
         this.dependents = new ArrayList<>();
     }
 
@@ -12,6 +13,9 @@ public class PolicyHolder extends Customer{
         return dependents;
     }
 
+    public void addDependent(Dependent dependent) {
+        this.dependents.add(dependent);
+    }
     public void setDependents(ArrayList<Dependent> dependents) {
         this.dependents = dependents;
     }
