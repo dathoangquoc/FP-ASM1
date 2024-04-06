@@ -10,10 +10,10 @@ public class Main {
             System.out.println("Data error");
         }
         String input = "";
-        while (!input.equals("0")) {
+        while (!input.equals("!")) {
             System.out.println("""
                 _____________________Good afternoon Manager_____________________
-                [0] Save and exit
+                [!] Save and exit
                 -------------------------
                 [1] Add new claim
                 [2] Update a claim
@@ -49,6 +49,62 @@ public class Main {
                     } while (!input.equals("0"));
                     break;
                 case "2":
+                    do {
+                        System.out.println("""
+                _____________________Update A Claim_____________________
+                [0] Go back
+                -------------------------
+                Enter the claim ID:
+                
+                """);
+                        input = scanner.nextLine();
+                        if (input.equals("0")) {
+                            break;
+                        } else if (m.getOneClaim(input) != null) {
+                            System.out.println("Enter a claim: ");
+                            String newClaim = scanner.nextLine();
+                            m.updateClaim(input, newClaim);
+                        } else {
+                            System.out.println("No claim found with ID: " + input);
+                        }
+                    } while (true);
+                    break;
+                case "3":
+                    do {
+                        System.out.println("""
+                _____________________Delete A Claim_____________________
+                [0] Go back
+                -------------------------
+                Enter the claim ID:
+                
+                """);
+                        input = scanner.nextLine();
+                        if (input.equals("0")) {
+                            break;
+                        } else if (m.deleteClaim(input)) {
+                            System.out.println("Deleted claim");
+                        } else {
+                            System.out.println("No claim found with ID: " + input);
+                        }
+                    } while (true);
+                    break;
+                case "4":
+                    do {
+                        System.out.println("""
+                _____________________Get A Claim_____________________
+                [0] Go back
+                -------------------------
+                Enter the claim ID:
+                
+                """);
+                        input = scanner.nextLine();
+                        Claim claim = m.getOneClaim(input);
+                        if (claim != null) {
+                            System.out.println(claim);
+                        } else {
+                            System.out.println("No claim found with ID: " + input);
+                        }
+                    } while (!input.equals("0"));
                     break;
                 case "5":
                     m.getAll();

@@ -32,6 +32,10 @@ public class Claim implements Serializable {
         return claimID;
     }
 
+    protected void setClaimID(String claimID) {
+        this.claimID = claimID;
+    }
+
     public Date getClaimDate() {
         return claimDate;
     }
@@ -108,15 +112,8 @@ public class Claim implements Serializable {
 
     @Override
     public String toString() {
-        return  "claimID='" + claimID + '\'' +
-                ", claimDate=" + claimDate +
-                ", insuredPerson=" + insuredPerson.getName() +
-                ", cardNum='" + cardNum + '\'' +
-                ", examDate=" + examDate +
-                ", documents=" + documents +
-                ", claimAmount=" + claimAmount +
-                ", status='" + status + '\'' +
-                ", receiverInfo='" + receiverInfo + '\'' +
-                '}';
+        return  String.format("| %s | %s | %-20s | %s | %s | %-60s | %-10s | %-10s | %s |" ,
+                getClaimID(), getClaimDate(), getInsuredPerson().getName(), getCardNum(),
+                getExamDate(), getDocuments(), getClaimAmount(), getStatus(), getReceiverInfo());
     }
 }

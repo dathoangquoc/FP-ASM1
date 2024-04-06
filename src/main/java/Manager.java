@@ -57,7 +57,7 @@ public class Manager implements Serializable {
         }
     }
 
-    private Customer findCustomer(String customerID) {
+    private Customer getOneCustomer(String customerID) {
         for (Customer c: customers) {
             if (c.getCustomerID().equalsIgnoreCase(customerID)) {
                 return c;
@@ -66,7 +66,7 @@ public class Manager implements Serializable {
         return null;
     }
 
-    private InsuranceCard findInsuranceCard(String cardNum) {
+    private InsuranceCard getOneInsuranceCard(String cardNum) {
         for (InsuranceCard c: insuranceCards) {
             if (c.getCardNum().equalsIgnoreCase(cardNum)) {
                 return c;
@@ -74,6 +74,16 @@ public class Manager implements Serializable {
         }
         return null;
     }
+
+    protected Claim getOneClaim(String claimID) {
+        for (Claim c : claims) {
+            if (c.getClaimID().equalsIgnoreCase(claimID)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 
     public void addClaim(Claim claim) {
         this.claims.add(claim);
@@ -87,90 +97,79 @@ public class Manager implements Serializable {
         this.insuranceCards.add(insuranceCard);
     }
 
-    public boolean newClaim(String input) {
-        if (input.equals("0")) {
-            return false;
-        }
-//        Remove whitespaces and non-visible characters, then split
+    public Claim parseClaim(String input) {
         String[] info = input.replaceAll("\\s+","").split(",");
 
-        String inputClaimDate;
-        String inputInsuredPersonID;
-        String inputExamDate;
-        String inputDocuments;
-        String inputClaimAmount;
-        String inputStatus;
-        String inputReceiver;
-
+        String inputClaimDate = null;
+        String inputInsuredPersonID = null;
+        String inputExamDate = null;
+        String inputDocuments = null;
+        String inputClaimAmount = null;
+        String inputStatus = null;
+        String inputReceiver = null;
 
         try {
-        inputClaimDate = info[0];
-        inputInsuredPersonID = info[1];
-        inputExamDate = info[2];
-        inputDocuments = info[3];
-        inputClaimAmount = info[4];
-        inputStatus = info[5];
-        inputReceiver = info[6];
+            inputClaimDate = info[0];
+            inputInsuredPersonID = info[1];
+            inputExamDate = info[2];
+            inputDocuments = info[3];
+            inputClaimAmount = info[4];
+            inputStatus = info[5];
+            inputReceiver = info[6];
 
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Not enough information");
-            return false;
         }
 //        Validate claimDate
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
-        Date claimDate;
+        Date claimDate = null;
         try {
             claimDate = format.parse(inputClaimDate);
         } catch (ParseException e) {
             System.out.println("Invalid date format. dd-MM-yyyy.");
-            return false;
         }
 
 //        Validate insuredPerson
-        Customer insuredPerson;
+        Customer insuredPerson = null;
         try {
-        insuredPerson = findCustomer(inputInsuredPersonID);
+            insuredPerson = getOneCustomer(inputInsuredPersonID);
             if (insuredPerson == null) {
                 throw new Exception();
             }
         } catch (Exception e) {
             System.out.println("Customer not found");
-            return false;
         }
 
 //        Validate cardNum
-        String cardNum;
+        String cardNum = null;
         try {
             cardNum = insuredPerson.getCardNum();
         } catch (NullPointerException e) {
             System.out.println("No Insurance Card found");
-            return false;
         }
 
 //        Validate examDate
-        Date examDate;
+        Date examDate = null;
         try {
             examDate = format.parse(inputExamDate);
         } catch (ParseException e) {
             System.out.println("Invalid date format. dd-MM-yyyy.");
-            return false;
         }
 
 //        Store documents
         String[] documents = inputDocuments.split("-");
 
 //        Validate claimAmount
-        double claimAmount;
+        double claimAmount = 0;
         try {
             claimAmount = Double.parseDouble(inputClaimAmount);
         } catch (NumberFormatException e) {
             System.out.println("Invalid Claim Amount");
-            return false;
         }
 
 //        Validate status
-        int status;
+        int status = 0;
         try {
             status = Integer.parseInt(inputStatus);
             if (status > 2) {
@@ -178,17 +177,21 @@ public class Manager implements Serializable {
             }
         } catch (Exception e) {
             System.out.println("Status number has to be 0 or 1 or 2");
-            return false;
         }
-
-//        Validate receiver info
-
 
 //        Add new claim
         Claim claim = new Claim(claimDate, insuredPerson, cardNum, examDate, claimAmount, status, inputReceiver);
         for (String s: documents) {
             claim.addDocument(s);
         }
+        return claim;
+    }
+
+    public boolean newClaim(String input) {
+        if (input.equals("0")) {
+            return false;
+        }
+        Claim claim = parseClaim(input);
         claims.add(claim);
         this.saveData();
         this.loadData();
@@ -197,22 +200,32 @@ public class Manager implements Serializable {
     }
 
 
-    public void updateClaim() {
+    public void updateClaim(String claimID, String newClaim) {
+//        Create new claim
+        int oldCount = Claim.getCount();
+        Claim claim = parseClaim(newClaim);  // This increase claimCount by 1 so it has to be reset
+        Claim.setCount(oldCount);
+
+//        Replace in claims list
+        Claim oldClaim = getOneClaim(claimID);
+        claim.setClaimID(oldClaim.getClaimID());
+        claims.set(claims.indexOf(oldClaim), claim);
+
+//        Save and reload
         this.saveData();
         this.loadData();
     }
 
 
-    public boolean deleteClaim(Claim claim) {
+    public boolean deleteClaim(String claimID) {
+        if (claims.remove(getOneClaim(claimID))) {
+            this.saveData();
+            this.loadData();
+            return true;
+        }
         return false;
     }
-
-
-    public String getOne(String id) {
-        return null;
-    }
-
-
+    
     public void getAll() {
         for (Claim c : claims) {
             System.out.println(c);
