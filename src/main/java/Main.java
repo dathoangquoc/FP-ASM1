@@ -1,3 +1,7 @@
+/**
+ * @author <Hoang Quoc Dat - s3979331>
+ */
+
 import java.util.Scanner;
 
 public class Main {

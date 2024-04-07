@@ -1,6 +1,9 @@
+/**
+ * @author <Hoang Quoc Dat - s3979331>
+ */
+
 import java.io.*;
 import java.util.Date;
-import java.util.Scanner;
 
 public class GenerateData {
     public static void main(String[] args) {

@@ -1,3 +1,7 @@
+/**
+ * @author <Hoang Quoc Dat - s3979331>
+ */
+
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

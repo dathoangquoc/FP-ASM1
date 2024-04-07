@@ -1,6 +1,8 @@
+/**
+ * @author <Hoang Quoc Dat - s3979331>
+ */
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class Dependent extends Customer implements Serializable {
     public Dependent(String name, String cardNum) {
