@@ -58,21 +58,21 @@ public class GenerateData {
         InsuranceCard ic15 = new InsuranceCard(p15, "OSCORP", new Date(2025, 3, 1));
 
         // Claims
-        Claim c1 = new Claim(new Date(2024, 1, 1), p1, "0000000001", new Date(2024, 1, 2), 50000, 0, "Peter Parker - 1100");
-        Claim c2 = new Claim(new Date(2024, 2, 1), p2, "0000000002", new Date(2024, 2, 5), 100000, 1, "Bruce Wayne - 1200");
-        Claim c3 = new Claim(new Date(2024, 3, 1), p3, "0000000003", new Date(2024, 3, 10), 20000, 2, "Clark Kent - 1300");
-        Claim c4 = new Claim(new Date(2024, 4, 1), p4, "0000000004", new Date(2024, 4, 15), 80000, 0, "Diana Prince - 1400");
-        Claim c5 = new Claim(new Date(2024, 5, 1), p5, "0000000005", new Date(2024, 5, 20), 30000, 1, "Steve Rogers - 1500");
-        Claim c6 = new Claim(new Date(2024, 6, 1), p6, "0000000006", new Date(2024, 6, 10), 150000, 2, "Tony Stark - 1600");
-        Claim c7 = new Claim(new Date(2024, 7, 1), p7, "0000000007", new Date(2024, 7, 15), 40000, 0, "Natasha Romanoff - 1700");
-        Claim c8 = new Claim(new Date(2024, 8, 1), p8, "0000000008", new Date(2024, 8, 20), 60000, 1, "Clint Barton - 1800");
-        Claim c9 = new Claim(new Date(2024, 9, 1), p9, "0000000009", new Date(2024, 9, 25), 25000, 2, "James Rhodes - 1900");
-        Claim c10 = new Claim(new Date(2024, 10, 1), p10, "0000000010", new Date(2024, 10, 10), 70000, 0, "Sam Wilson - 2000");
-        Claim c11 = new Claim(new Date(2024, 11, 1), p11, "0000000011", new Date(2024, 11, 15), 90000, 1, "Wanda Maximoff - 2100");
-        Claim c12 = new Claim(new Date(2024, 12, 1), p12, "0000000012", new Date(2024, 12, 20), 10000, 2, "Vision - 2200");
-        Claim c13 = new Claim(new Date(2025, 1, 1), p12, "0000000012", new Date(2024, 12, 20), 10000, 2, "Bucky Barnes - 2300");
-        Claim c14 = new Claim(new Date(2025, 2, 1), p12, "0000000012", new Date(2024, 12, 20), 10000, 2, "Loki Laufeyson - 2400");
-        Claim c15 = new Claim(new Date(2025, 3, 1), p12, "0000000012", new Date(2024, 12, 20), 10000, 2, "Thor Odinson - 2500");
+        Claim c1 = new Claim(new Date(2024, 0, 1), p1, "0000000001", new Date(2024, 1, 2), 50000, 0, "Peter Parker - 1100");
+        Claim c2 = new Claim(new Date(2024, 1, 1), p2, "0000000002", new Date(2024, 2, 5), 100000, 1, "Bruce Wayne - 1200");
+        Claim c3 = new Claim(new Date(2024, 2, 1), p3, "0000000003", new Date(2024, 3, 10), 20000, 2, "Clark Kent - 1300");
+        Claim c4 = new Claim(new Date(2024, 3, 1), p4, "0000000004", new Date(2024, 4, 15), 80000, 0, "Diana Prince - 1400");
+        Claim c5 = new Claim(new Date(2024, 4, 1), p5, "0000000005", new Date(2024, 5, 20), 30000, 1, "Steve Rogers - 1500");
+        Claim c6 = new Claim(new Date(2024, 5, 1), p6, "0000000006", new Date(2024, 6, 25), 150000, 2, "Tony Stark - 1600");
+        Claim c7 = new Claim(new Date(2024, 6, 1), p7, "0000000007", new Date(2024, 7, 30), 40000, 0, "Natasha Romanoff - 1700");
+        Claim c8 = new Claim(new Date(2024, 7, 1), p8, "0000000008", new Date(2024, 8, 5), 60000, 1, "Clint Barton - 1800");
+        Claim c9 = new Claim(new Date(2024, 9, 1), p9, "0000000009", new Date(2024, 9, 10), 25000, 2, "James Rhodes - 1900");
+        Claim c10 = new Claim(new Date(2024, 10, 1), p10, "0000000010", new Date(2024, 10, 15), 70000, 0, "Sam Wilson - 2000");
+        Claim c11 = new Claim(new Date(2024, 11, 1), p11, "0000000011", new Date(2024, 11, 20), 90000, 1, "Wanda Maximoff - 2100");
+        Claim c12 = new Claim(new Date(2024, 12, 1), p12, "0000000012", new Date(2024, 12, 25), 10000, 2, "Vision - 2200");
+        Claim c13 = new Claim(new Date(2025, 1, 1), p13, "0000000013", new Date(2025, 1, 30), 10000, 2, "Bucky Barnes - 2300");
+        Claim c14 = new Claim(new Date(2025, 2, 1), p14, "0000000014", new Date(2025, 2, 5), 10000, 2, "Loki Laufeyson - 2400");
+        Claim c15 = new Claim(new Date(2025, 3, 1), p15, "0000000015", new Date(2025, 3, 10), 10000, 2, "Thor Odinson - 2500");
 
         //Claim.addDocument()
         c1.addDocument("Medical_Bill");

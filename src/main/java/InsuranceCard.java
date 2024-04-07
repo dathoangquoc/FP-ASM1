@@ -24,7 +24,7 @@ public class InsuranceCard implements Serializable {
         return cardHolder;
     }
 
-    public void setCardHolder(Customer cardHolder) {
+    protected void setCardHolder(Customer cardHolder) {
         this.cardHolder = cardHolder;
     }
 
@@ -32,7 +32,7 @@ public class InsuranceCard implements Serializable {
         return policyOwner;
     }
 
-    public void setPolicyOwner(String policyOwner) {
+    protected void setPolicyOwner(String policyOwner) {
         this.policyOwner = policyOwner;
     }
 
@@ -40,7 +40,7 @@ public class InsuranceCard implements Serializable {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    protected void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 

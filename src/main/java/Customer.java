@@ -24,7 +24,7 @@ public abstract class Customer implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
@@ -32,7 +32,7 @@ public abstract class Customer implements Serializable {
         return cardNum;
     }
 
-    public void setInsuranceCard(InsuranceCard insuranceCard) {
+    protected void setInsuranceCard(InsuranceCard insuranceCard) {
         this.cardNum = cardNum;
     }
 

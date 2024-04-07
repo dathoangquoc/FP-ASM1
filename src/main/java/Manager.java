@@ -170,12 +170,10 @@ public class Manager implements Serializable {
 
 //        Validate status
         int status = 0;
+
         try {
             status = Integer.parseInt(inputStatus);
-            if (status > 2) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Status number has to be 0 or 1 or 2");
         }
 
@@ -203,13 +201,14 @@ public class Manager implements Serializable {
     public void updateClaim(String claimID, String newClaim) {
 //        Create new claim
         int oldCount = Claim.getCount();
-        Claim claim = parseClaim(newClaim);  // This increase claimCount by 1 so it has to be reset
+        Claim claim = parseClaim(newClaim);  // This increase claimCount by 1, so it has to be reset
         Claim.setCount(oldCount);
 
 //        Replace in claims list
         Claim oldClaim = getOneClaim(claimID);
         claim.setClaimID(oldClaim.getClaimID());
         claims.set(claims.indexOf(oldClaim), claim);
+        System.out.println("Updated claim" + oldClaim.getClaimID());
 
 //        Save and reload
         this.saveData();
@@ -226,9 +225,23 @@ public class Manager implements Serializable {
         return false;
     }
     
-    public void getAll() {
+    public void getAllClaims() {
         for (Claim c : claims) {
             System.out.println(c);
+        }
+    }
+
+    protected void getReport() {
+        try {
+            FileWriter fw = new FileWriter("./src/report/report.txt");
+            for (Claim c : claims) {
+                fw.write(c + System.lineSeparator());
+            }
+            fw.flush();
+            fw.close();
+            System.out.println("Report generated at /report/report.txt");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

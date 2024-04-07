@@ -13,7 +13,7 @@ public class Claim implements Serializable {
     private String status;
     private String receiverInfo;
     private static int count = 0;
-    private static String[] statuses = {"New", "Processing", "Done"};
+    private static final String[] statuses = {"New", "Processing", "Done"};
 
     public Claim(Date claimDate, Customer insuredPerson, String cardNum, Date examDate, double claimAmount, int statusNum, String receiverInfo) {
         count++;
@@ -40,7 +40,7 @@ public class Claim implements Serializable {
         return claimDate;
     }
 
-    public void setClaimDate(Date claimDate) {
+    protected void setClaimDate(Date claimDate) {
         this.claimDate = claimDate;
     }
 
@@ -48,7 +48,7 @@ public class Claim implements Serializable {
         return insuredPerson;
     }
 
-    public void setInsuredPerson(Customer insuredPerson) {
+    protected void setInsuredPerson(Customer insuredPerson) {
         this.insuredPerson = insuredPerson;
     }
 
@@ -56,7 +56,7 @@ public class Claim implements Serializable {
         return cardNum;
     }
 
-    public void setCardNum(String cardNum) {
+    protected void setCardNum(String cardNum) {
         this.cardNum = cardNum;
     }
 
@@ -64,7 +64,7 @@ public class Claim implements Serializable {
         return examDate;
     }
 
-    public void setExamDate(Date examDate) {
+    protected void setExamDate(Date examDate) {
         this.examDate = examDate;
     }
 
@@ -72,7 +72,7 @@ public class Claim implements Serializable {
         return documents;
     }
 
-    public void addDocument(String document) {
+    protected void addDocument(String document) {
         // Replace spaces with "_"
         document = document.replaceAll("\\s+","_");
         this.documents.add(this.getClaimID() + "_" + this.getCardNum() + "_" + document + ".pdf");
@@ -82,7 +82,7 @@ public class Claim implements Serializable {
         return claimAmount;
     }
 
-    public void setClaimAmount(double claimAmount) {
+    protected void setClaimAmount(double claimAmount) {
         this.claimAmount = claimAmount;
     }
 
@@ -90,15 +90,15 @@ public class Claim implements Serializable {
         return status;
     }
 
-    public void setStatus(int statusNum) {
-        this.status = statuses[statusNum];
+    protected void setStatus(int statusNum) {
+            this.status = statuses[statusNum];
     }
 
     public String getReceiverInfo() {
         return receiverInfo;
     }
 
-    public void setReceiverInfo(String receiverInfo) {
+    protected void setReceiverInfo(String receiverInfo) {
         this.receiverInfo = receiverInfo;
     }
 

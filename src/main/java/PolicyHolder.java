@@ -13,10 +13,10 @@ public class PolicyHolder extends Customer implements Serializable {
         return dependents;
     }
 
-    public void addDependent(Dependent dependent) {
+    protected void addDependent(Dependent dependent) {
         this.dependents.add(dependent);
     }
-    public void setDependents(ArrayList<Dependent> dependents) {
+    protected void setDependents(ArrayList<Dependent> dependents) {
         this.dependents = dependents;
     }
 }

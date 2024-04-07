@@ -20,6 +20,7 @@ public class Main {
                 [3] Delete a claim
                 [4] Get a claim
                 [5] Get all claims
+                [6] Generate Report
                 -------------------------
                 ENTER NUMBER:
                 """);
@@ -62,6 +63,7 @@ public class Main {
                             break;
                         } else if (m.getOneClaim(input) != null) {
                             System.out.println("Enter a claim: ");
+                            System.out.println("claim date, insured person's ID, exam date, documents name, claim amount, status, receiver info");
                             String newClaim = scanner.nextLine();
                             m.updateClaim(input, newClaim);
                         } else {
@@ -107,9 +109,12 @@ public class Main {
                     } while (!input.equals("0"));
                     break;
                 case "5":
-                    m.getAll();
+                    m.getAllClaims();
                     System.out.println("Press [Enter] to continue");
                     input = scanner.nextLine();
+                    break;
+                case "6":
+                    m.getReport();
                     break;
             }
         }
